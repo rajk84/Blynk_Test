@@ -1,0 +1,55 @@
+//Code to control lights 
+
+//set variable to control light
+int led = D7; // This is where your LED is plugged in. The other side goes to a resistor connected to GND.
+String status;
+//set functions to control the relay
+/*int relayOn(String command);
+  int relayOff(String command);
+  int checkStatus(String command);*/
+
+void setup() {
+//set the switch as output
+    pinMode(led, OUTPUT);
+//Functions to be called from outside
+    Particle.function("relayOn", relayOn);
+    Particle.function("relayOff", relayOff);
+    Particle.variable("status", status);
+/*    Particle.function("toggleRelay", toggleRelay);
+    Particle.function("checkStatus", checkStatus);*/
+    digitalWrite(led,HIGH); //set switch to HIGH as low level trigger relay switches on when switch is high
+}
+
+void loop() {
+//get status of switch and assign it to variable 'status'
+    if (digitalRead(led) == HIGH) {
+        status = "OFF";
+    }
+    else{
+        status = "ON";
+    }
+//status = digitalRead(led);
+delay(1000);
+}
+
+int relayOn(String command){
+//Function to switch on the Light
+    if (command=="on") {
+        digitalWrite(led,LOW);
+        return 1;
+    }
+    else {
+        return -1;
+    }    
+}
+
+int relayOff(String command){
+//Function to switch on the Light
+    if (command=="off") {
+        digitalWrite(led,HIGH);
+        return 1;
+    }
+    else {
+        return -1;
+    }    
+}
