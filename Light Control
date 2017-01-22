@@ -1,3 +1,8 @@
+// This #include statement was automatically added by the Particle IDE.
+#include "blynk/blynk.h"
+char auth[] = "681c2b4e25ed4e5cb982eb4933bcdbe9";
+
+
 //Code to control lights 
 
 //set variable to control light
@@ -9,6 +14,12 @@ String status;
   int checkStatus(String command);*/
 
 void setup() {
+//Blynk Code-start    
+    Serial.begin(9600);
+    delay(5000); // Allow board to settle
+    Blynk.begin(auth);
+//Blynk Code-End
+
 //set the switch as output
     pinMode(led, OUTPUT);
 //Functions to be called from outside
@@ -30,6 +41,10 @@ void loop() {
     }
 //status = digitalRead(led);
 delay(1000);
+
+//Blynk Code-Start
+    Blynk.run();
+//Blynk Code-End
 }
 
 int relayOn(String command){
