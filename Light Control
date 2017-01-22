@@ -1,4 +1,7 @@
 // This #include statement was automatically added by the Particle IDE.
+#include "HttpClient/HttpClient.h"
+
+// This #include statement was automatically added by the Particle IDE.
 #include "blynk/blynk.h"
 char auth[] = "681c2b4e25ed4e5cb982eb4933bcdbe9";
 
@@ -12,6 +15,21 @@ String status;
 /*int relayOn(String command);
   int relayOff(String command);
   int checkStatus(String command);*/
+
+//setup http request variables-start
+HttpClient http;
+
+// Headers currently need to be set at init, useful for API keys etc.
+http_header_t headers[] = {
+    //  { "Content-Type", "application/json" },
+    //  { "Accept" , "application/json" },
+    { "Accept" , "*/*"},
+    { NULL, NULL } // NOTE: Always terminate headers will NULL
+};
+
+http_request_t request;
+http_response_t response;
+//setup http request variable-end
 
 void setup() {
 //Blynk Code-start    
@@ -39,6 +57,15 @@ void loop() {
     else{
         status = "ON";
     }
+
+//post to dweet
+	request.hostname = "dweet.io";
+    request.port = 80;
+    request.path = "/dweet/for/Raj_Light_status?status=" + status;
+
+// Get request
+    http.get(request, response, headers);
+    
 //status = digitalRead(led);
 delay(1000);
 
