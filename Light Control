@@ -52,10 +52,10 @@ void setup() {
 void loop() {
 //get status of switch and assign it to variable 'status'
     if (digitalRead(led) == HIGH) {
-        status = "OFF";
+        status = "0";
     }
     else{
-        status = "ON";
+        status = "1";
     }
 
 //post to dweet
