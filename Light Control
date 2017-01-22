@@ -5,6 +5,11 @@
 #include "blynk/blynk.h"
 char auth[] = "681c2b4e25ed4e5cb982eb4933bcdbe9";
 
+/*Pin hookup between Photon and Relay below
+VIN->DC+
+GND->DC-
+D7->IN
+*/
 
 //Code to control lights 
 
